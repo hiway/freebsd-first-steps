@@ -5,7 +5,10 @@ description = "A guided tutorial and web-ui to set up your first FreeBSD server.
 authors = ["Harshad Sharma <harshad@sharma.io>"]
 license = "BSD-2-Clause"
 readme = "README.md"
-packages = [{include = "freebsd_first_steps"}]
+packages = [{include = "freebsd_first_steps", from = "src"}]
+
+[tool.poetry.scripts]
+freebsd_first_steps = "freebsd_first_steps.cli:main"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -16,6 +19,11 @@ streamlit-searchbox = "^0.0.3"
 statelit = "^0.0.2"
 streamlit-scrollable-textbox = "^0.0.2"
 streamlit-gov-uk-components = "^0.0.14"
+watchdog = "^2.1.9"
+plumbum = "^1.8.0"
+
+[tool.poetry.group.dev.dependencies]
+black = {version = "^22.10.0", allow-prereleases = true}
 
 [build-system]
 requires = ["poetry-core"]
