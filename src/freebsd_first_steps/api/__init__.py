@@ -1,3 +1,3 @@
-from . import hostname
+from . import hostname, timezone
 
-__all__ = ["hostname"]
+__all__ = ["hostname", "timezone"]
