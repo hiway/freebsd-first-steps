@@ -50,7 +50,8 @@ st.markdown(
     f"""
     ### Timezone
 
-    The timezone is used to set the correct time on your machine.
+    When hosting public services, it is recommended to set the timezone to UTC.
+    If for personal/private use, set it to your local timezone.
 
     The current timezone is `{TIMEZONE}`.
     """
