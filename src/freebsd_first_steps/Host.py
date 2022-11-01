@@ -13,18 +13,15 @@ TIMEZONE = timezone.get_system_timezone()
 st.title("FreeBSD First Steps")
 st.markdown(
     f"""
-    This is an interactive tutorial to set up your new FreeBSD machine.
+    This is an interactive guide to set up your new FreeBSD machine.
 
     It will help you set up a Virtual Private Network (VPN) 
     using [Tailscale](https://tailscale.com) to access your
-    FreeBSD machine from anywhere, harden and lock it down, and set up
-    common private or public services.
-
-    ## Welcome to FreeBSD!
-
-    Review and make any changes to the default configuration below.
+    FreeBSD machine from anywhere, harden and lock it down, 
+    and set up any common private or public services you may want.
     """
 )
+
 
 st.markdown(
     f"""
@@ -36,7 +33,6 @@ st.markdown(
     The current hostname is `{HOSTNAME}`.
     """
 )
-
 if (new_hostname := st.text_input("Change hostname:", HOSTNAME))!= HOSTNAME:
     try:
         hostname.set(new_hostname)
@@ -46,12 +42,13 @@ if (new_hostname := st.text_input("Change hostname:", HOSTNAME))!= HOSTNAME:
         st.error(e)
         st.stop()
 
+
 st.markdown(
     f"""
     ### Timezone
 
-    When hosting public services, it is recommended to set the timezone to UTC.
-    If for personal/private use, set it to your local timezone.
+    When hosting public services, prefer UTC.
+    Local timezone might be more convenient for private services.
 
     The current timezone is `{TIMEZONE}`.
     """
@@ -68,3 +65,12 @@ if new_timezone and new_timezone != TIMEZONE:
         print_exc()
         st.error(e)
         st.stop()
+
+
+st.markdown(
+    """
+    #### Next
+
+    [Set up a Private Network](/Private_Network)
+    """
+)
