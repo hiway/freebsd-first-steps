@@ -1,11 +1,11 @@
 from plumbum import local
 
 
-def hostname() -> str:
+def get() -> str:
     return local["hostname"]().strip()
 
 
-def set_hostname(hostname: str) -> None:
+def set(hostname: str) -> None:
     try:
         local["hostname"](hostname)
         local["sysrc"]("hostname=" + hostname)

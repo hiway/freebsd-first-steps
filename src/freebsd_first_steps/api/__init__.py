@@ -1,3 +1,3 @@
-from ._hostname import hostname, set_hostname
+from . import hostname
 
-__all__ = ["hostname", "set_hostname"]
+__all__ = ["hostname"]

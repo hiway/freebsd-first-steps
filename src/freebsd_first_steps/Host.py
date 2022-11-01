@@ -1,32 +1,43 @@
 import streamlit as st
-from pydantic import BaseModel
-from statelit import StateManager
+from freebsd_first_steps.api import hostname
 
 
-from freebsd_first_steps import api
+HOSTNAME = hostname.get()
 
 
-HOSTNAME = api.hostname() or "freebsd"
+st.title("FreeBSD First Steps")
 
+st.markdown(
+    """
+    This is an interactive tutorial to set up your new FreeBSD machine.
 
-class FreeBSDHost(BaseModel):
-    hostname: str = HOSTNAME
+    It will help you set up a Virtual Private Network (VPN) 
+    using [Tailscale](https://tailscale.com) to access your
+    FreeBSD machine from anywhere, harden and lock it down, and set up
+    common private or public services.
 
+    ## Welcome to FreeBSD!
 
-state_manager = StateManager(FreeBSDHost)
+    Review and make any changes to the default configuration below.
 
-state = state_manager.form()
+    ### Hostname
 
-if state.hostname != HOSTNAME:
-    st.write(f"Change hostname to: {state.hostname!r}?")
-    btn_change_hostname = st.button("Change")
-    if btn_change_hostname:
-        try:
-            api.set_hostname(state.hostname)
-            st.success(f"Hostname changed to: {state.hostname!r}")
-        except Exception as e:
-            if "Operation not permitted" in str(e):
-                st.error("You must run this app as root")
-            else:
-                st.error(e)
-            st.stop()
+    The hostname is used to identify your machine on the network. 
+    It is also used to generate the default domain name on Tailscale VPN.
+
+    The current hostname is `{HOSTNAME}`.
+    """
+)
+
+if (new_hostname := st.text_input("Change hostname:", HOSTNAME))!= HOSTNAME:
+    try:
+        hostname.set(new_hostname)
+        st.success(f"Hostname changed to {new_hostname}")
+    except Exception as e:
+        if "Operation not permitted" in str(e):
+            st.error(
+                "**Operation not permitted**: Please run this tutorial as root."
+            )
+        else:
+            st.error(f"Failed to set hostname: {e}")
+        st.stop()
