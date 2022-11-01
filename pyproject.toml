@@ -8,7 +8,7 @@ readme = "README.md"
 packages = [{include = "freebsd_first_steps", from = "src"}]
 
 [tool.poetry.scripts]
-freebsd_first_steps = "freebsd_first_steps.cli:main"
+freebsd-first-steps = "freebsd_first_steps.cli:main"
 
 [tool.poetry.dependencies]
 python = "^3.10"
